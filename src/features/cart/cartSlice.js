@@ -13,11 +13,17 @@ const cartSlice = createSlice({
     clearCart(state) {
       state.cart = [];
     },
+    deleteItem(state, action) {
+      state.cart = state.cart.filter((item) => item.pizzaId !== action.payload);
+    },
   },
 });
 
 export default cartSlice.reducer;
-export const { addItem, clearCart } = cartSlice.actions;
+export const { addItem, clearCart, deleteItem } = cartSlice.actions;
+
+export const getCurrentQuantityById = (id) => (state) =>
+  state.cart.cart.find((item) => item.pizzaId === id)?.quantity || 0;
 
 export const getCart = (state) => state.cart.cart;
 
